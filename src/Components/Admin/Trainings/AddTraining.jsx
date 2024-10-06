@@ -9,7 +9,7 @@ import { UserContext } from '../../../Context/UserContext';
 
 
 export default function AddTraining() {
-    let {userToken,setUserToken} = useContext(UserContext);
+    let {userToken,setUserToken,userId , setUserId,userData,setUserData} = useContext(UserContext);
 
     const initialValues={
         name: '',
@@ -22,10 +22,10 @@ export default function AddTraining() {
         try {
             const { data } = await axios.post(
                 `https://localhost:7107/api/TrainingField`,
-                users, // Sending the users object directly
+                users,
                 {
                     headers: {
-                        'Content-Type': 'application/json', // Set the content type
+                        'Content-Type': 'application/json', 
                         'Authorization': `Bearer ${userToken}`,
                     },
                 }
@@ -42,7 +42,7 @@ export default function AddTraining() {
             progress: undefined,
             theme: "dark",
             });
-                navigate('/dashboard/trainings')
+            navigate('/dashboard/trainings')
          }
             
             
@@ -90,6 +90,7 @@ export default function AddTraining() {
                     onChange={formik.handleChange}
                      onBlur={formik.handleBlur}
                       touched={formik.touched}
+                      colSize="col-md-12" 
                       />
                   
               )
@@ -97,7 +98,7 @@ export default function AddTraining() {
     
     
     <>
-    {/* {userToken} */}
+    {console.log(userData)}
     <h2 className='ps-4 pt-4'>Add Training</h2>
     <form onSubmit={formik.handleSubmit} className="row justify-content-center align-items-center w-75 ps-4 pt-5 gap-3">
         {renderInputs}

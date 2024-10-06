@@ -33,7 +33,7 @@ export default function Trainers() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`https://localhost:7105/api/Trainer/${id}`);
+          await axios.delete(`https://localhost:7107/api/Trainer/${id}`);
           // Remove the deleted trainer from the trainers array
           setTrainers((prevTrainers) => prevTrainers.filter((trainer) => trainer.id !== id));
           Swal.fire({

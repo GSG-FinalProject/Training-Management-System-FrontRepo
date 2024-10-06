@@ -74,17 +74,17 @@ function Dashboard({openSidebarToggle, OpenSidebar}) {
             <AiOutlineForm className='icon'/> Forms 
             
             <div className="items pt-4 ps-3">
-              <a href="addTrainer"  >
+              <a href="/dashboard/addTrainer"  >
                     <GoDotFill className='icon'/> <FontAwesomeIcon icon={faPersonChalkboard} /> Trainers
                 </a>
             </div>
             <div className="items pt-4 ps-3" >
-              <a href="addTrainee" >
+              <a href="/dashboard/addTrainee" >
                     <GoDotFill className='icon'/> <FontAwesomeIcon icon={faUser} /> Trainees
                 </a>
             </div>
             <div className="items pt-4 ps-3" >
-              <a href="addTraining" >
+              <a href="/dashboard/addTraining" >
                     <GoDotFill className='icon'/> <FontAwesomeIcon icon={faBarsProgress} /> Trainings
                 </a>
             </div>  

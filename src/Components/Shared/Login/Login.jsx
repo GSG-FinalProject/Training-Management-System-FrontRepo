@@ -14,22 +14,22 @@ export default function Login() {
         password: '',
     };
     const navigate = useNavigate();
-    let {userToken,setUserToken} = useContext(UserContext);
+    let {userToken,setUserToken,userId , setUserId,userData,setUserData} = useContext(UserContext);
     
     const [user,setUser] = useState({});
     // const[userToken,setUserToken] = useState('');
     useEffect(() => {
     if(userToken){
-      if(user.userType == 0){
+      if(userData.userType == 0){
         navigate('/dashboard')
       }
-      else if(user.userType == 1){
+      else if(userData.userType == 1){
         navigate('/classRoom')
       }
-      else if(user.userType == 2){
+      else if(userData.userType == 2){
         navigate('/')
       }
-  }},[userToken,user,navigate])
+  }},[userToken,userData,navigate])
     const onSubmit=async users=>{
         const {data} = await axios.post('https://localhost:7107/api/Auth/login',users);
         if(data.succeeded){
@@ -82,6 +82,7 @@ export default function Login() {
           onChange={formik.handleChange}
            onBlur={formik.handleBlur}
             touched={formik.touched}
+            colSize="col-md-12" 
             />
     )
   return (
