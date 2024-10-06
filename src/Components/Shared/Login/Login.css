@@ -1,0 +1,12 @@
+.head{
+    color: #395886;
+}
+.loginBtn{
+    background-color: #395886;
+    color: #f0f3fa;
+}
+.loginBtn:hover{
+    background-color:#f0f3fa ;
+    color: #395886;
+    border:1px solid #395886;
+}
