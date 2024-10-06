@@ -1,17 +1,19 @@
 import React from 'react'
 import {createBrowserRouter,} from "react-router-dom";
-import StudentLayout from './StudentLayout';
+import TraineeLayout from './TraineeLayout';
 import AdminLayout from './AdminLayout';
 import TrainerLayout from './TrainerLayout';
+import TrainerDashboard from '../Components/Trainer/TrainerDashboard/TrainerDashboard'
+import TraineeDashboard from '../Components/Trainee/TraineeDashboard/TraineeDashboard'
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <StudentLayout />,
+    element: <TraineeLayout />,
     children: [
       {
-        path: "*",
-        element: <h2>page not found --- Student</h2>,
+        path: "",
+        element: <TraineeDashboard />,
       },
     ],
   },
@@ -20,7 +22,6 @@ export const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       {
-        path: "*",
         element: <h2>page not found --- DashboardAdmin</h2>,
       },
     ],
@@ -30,8 +31,8 @@ export const router = createBrowserRouter([
     element: <TrainerLayout />,
     children: [
       {
-        path: "*",
-        element: <h2>page not found --- Trainer</h2>,
+        path: "",
+        element: <TrainerDashboard />,
       },
     ],
   },

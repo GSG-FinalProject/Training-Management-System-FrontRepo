@@ -1,0 +1,81 @@
+.feedback-management {
+    padding: 20px;
+    background-color: #f0f3fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.feedback-management ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.submission-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #b1c9ef;
+    border-radius: 8px;
+}
+
+.submission-info {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.submission-item textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #b1c9ef;
+    box-sizing: border-box;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+.submission-item button {
+    background-color: #395886;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submission-item button:hover {
+    background-color: #2d4466;
+}
+
+.success-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+
+@media (max-width: 600px) {
+    .feedback-management {
+        padding: 15px;
+    }
+
+    .submission-item textarea {
+        width: 100%;
+        height: 80px; 
+    }
+
+    .submission-item button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .success-message,
+    .error-message {
+        font-size: 14px;
+    }
+}

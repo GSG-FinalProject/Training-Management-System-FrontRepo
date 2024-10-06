@@ -22,7 +22,7 @@ const Navbar = () => {
       });
   };
 
-  // Fetch user photo from the API //i need to delete it if there is no profile pic for the trainer
+  // Fetch user photo from the API
   useEffect(() => {
     axios.get('/api/user-profile')
       .then(response => {
