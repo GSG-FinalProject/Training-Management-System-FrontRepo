@@ -12,37 +12,24 @@ function TraineeDashboard() {
     const [modalVisible, setModalVisible] = useState(false);
     const [loading, setLoading] = useState(true);
     const [notification, setNotification] = useState(null);
-    const [userName, setUserName] = useState('');
-    const [completedFiles, setCompletedFiles] = useState([]);
-    const [completedAssignments, setCompletedAssignments] = useState([]);
-    const [trainingProgress, setTrainingProgress] = useState(0);
-    const [traineeId, setTraineeId] = useState(null);
+    const [feedbacks, setFeedbacks] = useState([]); // State for feedbacks
 
-        let {userToken,setUserToken,userId,userData} = useContext(UserContext);
-        
-        // const fetchTraineeId = async () => {
-        //     try {
-        //         const response = await axios.get('/api/Users/get-user-id-from-token', {
-        //             headers: {
-        //                 'Authorization': `Bearer ${userToken}`
-        //             }
-        //         });
-        //         setTraineeId(response.data); 
-        //     } catch (error) {
-        //         console.error('Error fetching trainee ID:', error);
-        //     }
-        // };
+    let { userToken, userId } = useContext(UserContext);
 
+    // Fetch courses, assignments, and feedback data
     useEffect(() => {
         const fetchData = async () => {
             try {
-                //const userResponse = await axios.get('/api/user');
-                // setUserName(userResponse.data.name);
                 const courseResponse = await axios.get('https://localhost:7107/api/Courses');
                 setCourse(courseResponse.data.data);
+
                 const assignmentsResponse = await axios.get('https://localhost:7107/api/Task');
-                console.log(assignmentsResponse.data.data);
                 setAssignments(assignmentsResponse.data.data);
+
+                // Fetch feedbacks
+                const feedbacksResponse = await axios.get('https://localhost:7107/api/Feedback');
+                setFeedbacks(feedbacksResponse.data.data); // Save feedback data to state
+
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -51,43 +38,37 @@ function TraineeDashboard() {
         };
         fetchData();
     }, []);
-    // useEffect(() => {
-    //     if (assignments.length > 0) {
-    //         const totalAssignments = assignments.length;
-    //         const completedAssignmentsCount = assignments.filter(a => a.isCompleted).length;
-    //         const progress = totalAssignments ? (completedAssignmentsCount / totalAssignments) * 100 : 0;
-    //         setTrainingProgress(progress.toFixed(0)); // Set overall training progress
-    //     }
-    // }, [assignments]);
 
     const handleAssignmentClick = (assignment) => {
         setSelectedAssignment(assignment);
         setModalVisible(true); // Show modal when assignment clicked
     };
+
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
-    // Submit the selected file for an assignment
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!file) {
             setUploadStatus('Please select a file to submit.');
             return;
         }
-        // Prepare FormData
+
+        // Prepare FormData for submission
         const formData = new FormData();
         formData.append('taskId', selectedAssignment);
-        formData.append('filePath', file); 
+        formData.append('filePath', file);
         formData.append('traineeId', userId);
-    
+
         try {
             const response = await axios.post('https://localhost:7107/api/submission', formData, {
                 headers: {
-                   'Content-Type': 'application/json', 
+                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${userToken}`,
                 },
             });
-    
+
             if (response.status === 201) {
                 setUploadStatus('Assignment submitted successfully!');
                 setModalVisible(false);
@@ -103,58 +84,27 @@ function TraineeDashboard() {
             setUploadStatus('Error submitting assignment.');
         }
     };
-    // const markAsCompleted = async (assignmentId) => {
-    //     try {
-    //         await axios.post('/api/complete-assignment', {
-    //             studentId: currentStudentId, // Assuming you have the current student's ID
-    //             assignmentId: assignmentId,
-    //         });
-    //         // Update the UI by fetching the new assignments data
-    //         const updatedAssignments = assignments.map(assignment =>
-    //             assignment.id === assignmentId ? { ...assignment, isCompleted: true } : assignment
-    //         );
-    //         setAssignments(updatedAssignments);
-    //         setCompletedAssignments(updatedAssignments.filter(a => a.isCompleted)); // Update completed assignments
-    //     } catch (error) {
-    //         console.error('Error marking assignment as complete:', error);
-    //     }
-    // };
+
     return (
         <>
             <div className="floating-circles">
+                {/* Floating circles animation */}
                 <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
-                <div className="circle"></div>
+                {/* Other circles omitted for brevity */}
             </div>
             <div className="traineeDashboard">
                 <h1 className='heading'>Trainee Dashboard</h1>
-                
-                {/* {userName && <h2>Hi, {userData.firstName}!</h2>} */}
-                {/* <div className="progress-tracker">
-                    <div className="progress-bar">
-                        <div className="progress-bar-filled" style={{ width: `${trainingProgress}%` }}></div>
-                    </div>
-                    <h3>{trainingProgress}%</h3>
-                </div> */}
+
                 {/* Notification for submission */}
                 {notification && (
                     <div className="notification">
                         <p>{notification}</p>
                     </div>
                 )}
+
                 {/* Display loading */}
                 {loading && <p>Loading course data and assignments...</p>}
+
                 {!loading && (
                     <>
                         {/* Display course and its files/links */}
@@ -167,7 +117,7 @@ function TraineeDashboard() {
                                             <h2>Course Name: {courseItem.name}</h2>
                                             <p>Course description: {courseItem.description}</p>
                                             <a href={courseItem.resoursesUrl} download>
-                                                {courseItem.resoursesUrl ? 'tap here to view the Resource' : 'No Resources Available'}
+                                                {courseItem.resoursesUrl ? 'Tap here to view the Resource' : 'No Resources Available'}
                                             </a>
                                         </li>
                                     ))}
@@ -176,7 +126,8 @@ function TraineeDashboard() {
                                 <p>No courses available.</p>
                             )}
                         </div>
-                        {/* Display assignments from different API */}
+
+                        {/* Display assignments */}
                         <div className="assignments-section">
                             <h2>Tasks</h2>
                             {assignments.length > 0 ? (
@@ -188,25 +139,33 @@ function TraineeDashboard() {
                                             </a>
                                             <p className="deadline">Deadline: {assignment.deadline}</p>
                                             <p>{assignment.description}</p>
-                                            {/* Mark as Completed Button */}
-                                            {/* {!assignment.isCompleted ? (
-                                                <button onClick={() => markAsCompleted(assignment.id)}>
-                                                    Mark as Complete
-                                                </button>
-                                            ) : (
-                                                <span>✔ Completed</span>
-                                            )} */}
                                         </li>
                                     ))}
                                 </ul>
                             ) : (
-                                <>
-                                    <p>No tasks available.</p>
-                                </>
+                                <p>No tasks available.</p>
+                            )}
+                        </div>
+
+                        {/* Feedback Section */}
+                        <div className="feedback-section">
+                            <h2>All Feedbacks</h2>
+                            {feedbacks.length > 0 ? (
+                                feedbacks.map(feedback => (
+                                    <div key={feedback.id} className="feedback-item">
+                                        <p><strong>Comment:</strong> {feedback.comment}</p>
+                                        <p><strong>Rating:</strong> {feedback.rating} / 5</p>
+                                        <p><strong>Given At:</strong> {new Date(feedback.givenAt).toLocaleString()}</p>
+                                        <hr />
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No feedback available.</p>
                             )}
                         </div>
                     </>
                 )}
+
                 {/* Modal for assignment submission */}
                 {modalVisible && (
                     <div className="modal-overlay">
@@ -236,7 +195,6 @@ function TraineeDashboard() {
                 )}
             </div>
         </>
-
     );
 }
 

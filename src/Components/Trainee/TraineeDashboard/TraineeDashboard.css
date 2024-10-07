@@ -355,3 +355,22 @@ body {
     padding: 20px;
     border-radius: 8px;
 }
+.traineeDashboard .feedback-section {
+    background-color: #B1C9EF;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+    width: 70%;
+}
+
+.traineeDashboard .feedback-item {
+    background-color:#d6e4f0;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.traineeDashboard .feedback-item p {
+    margin: 0;
+}
