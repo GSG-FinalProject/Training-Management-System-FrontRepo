@@ -29,6 +29,10 @@ The application also includes authentication features like login and logout for 
 - Manage Training programs.
 - Login and Logout functionality.
 
+
+https://github.com/user-attachments/assets/f4d7f2be-cbf8-4d00-9683-fbd638d15c2f
+
+
 ### Trainer
 - Add Courses for Trainees.
 - Assign Tasks to Trainees.
