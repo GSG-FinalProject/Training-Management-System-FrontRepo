@@ -1,6 +1,6 @@
 import React from 'react'
 import {createBrowserRouter,} from "react-router-dom";
-import StudentLayout from './StudentLayout';
+import StudentLayout from './TraineeLayout';
 import AdminLayout from './AdminLayout';
 import TrainerLayout from './TrainerLayout';
 import Login from '../Components/Shared/Login/Login';
