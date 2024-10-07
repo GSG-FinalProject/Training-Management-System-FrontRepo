@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios';
 import { useFormik } from 'formik';
 import Input from '../../Shared/Input/Input';
 import { addTrainer } from '../../../Validation/validation';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { UserContext } from '../../../Context/UserContext';
 
 
 export default function AddTrainer() {
   const [trainings,setTrainings] = useState([]);
   let [selectedTraining,setSelectedTraining] = useState(null);
-  
+  let {userToken,setUserToken,userId , setUserId,userData,setUserData} = useContext(UserContext);
+
   const initialValues={
         firstName: '',
         lastName:'',
@@ -50,9 +52,10 @@ export default function AddTrainer() {
                 `https://localhost:7107/api/Auth/register/trainer`,
                 formData, // Sending the users object directly
                 {
-                    headers: {
-                        'Content-Type': 'application/json', // Set the content type
-                    },
+                  headers: {
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${userToken}`,
+                },
                 }
             );
             if(data.succeeded){

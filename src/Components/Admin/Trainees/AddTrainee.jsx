@@ -178,16 +178,19 @@
 // }
 
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import Input from '../../Shared/Input/Input';
 import { addTrainee } from '../../../Validation/validation';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { UserContext } from '../../../Context/UserContext';
 
 export default function AddTrainee() {
   const [trainers, setTrainers] = useState([]);
+  let {userToken,setUserToken,userId , setUserId,userData,setUserData} = useContext(UserContext);
+
 
   const initialValues = {
     firstName: '',
@@ -227,8 +230,9 @@ export default function AddTrainee() {
         formData,  // Sending form values directly as JSON
         {
           headers: {
-            'Content-Type': 'application/json',  // JSON content type
-          },
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${userToken}`,
+        },
         }
       );
 
