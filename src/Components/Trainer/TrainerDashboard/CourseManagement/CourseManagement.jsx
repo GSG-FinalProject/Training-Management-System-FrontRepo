@@ -24,7 +24,7 @@ const CourseManagement = () => {
             }
         };
         fetchCourses();
-    }, [baseUrl]);
+    }, [baseUrl,courses]);
 
 
     // Select a course for update
