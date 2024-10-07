@@ -9,7 +9,20 @@ import { Link } from 'react-router-dom';
 export default function Trainers() {
   let [trainers,setTrainers] = useState([]);
   const[loading,setLoading] = useState(true);
+  const [trainings,setTrainings] = useState([]);
+
+    const fetchTrainings = async ()  => {
+        try{
+        const { data } = await axios.get(`https://localhost:7107/api/TrainingField`);
+        console.log(data)
+        setTrainings(data.data);
+      }
+        catch(error){
+         console.log(error);
+        }
+      };
   const fetchTrainers = async ()  => {
+    
     try{
     const { data } = await axios.get(`https://localhost:7107/api/Trainer`);
     console.log(data)
@@ -54,11 +67,12 @@ export default function Trainers() {
   };
   useEffect(() => {
     fetchTrainers();
+    fetchTrainings();
   }, []);
   // fetchTrainers();
   return (
     <>
-   <h1 className='ps-4 py-3'>Trainers</h1>
+   <h1 className='ps-4 py-3 main-col'>Trainers</h1>
    <div className="table-container ps-3">
    {loading ? (
           <Loading/> // Display loading message
@@ -70,16 +84,20 @@ export default function Trainers() {
       <th scope="col">First name</th>
       <th scope="col">Last name</th>
       <th scope="col">Email</th>
+      <th scope='col'>Trainig field</th>
       <th scope='col'>Action</th>
     </tr>
   </thead>
   <tbody>
-    {trainers.length?(trainers.map((trainer,index) => (
+    {trainers.length?(trainers.map((trainer,index) => {
+      const trainingField = trainings.find(field => field.id === trainer.trainingFieldId);
+      return(
       <tr key={trainer.id}>
         <th scope="row">{++index}</th>
         <td>{trainer.firstName}</td>
         <td>{trainer.lastName}</td>
         <td>{trainer.email}</td>
+        <td>{trainingField ? trainingField.name : 'No Training Field'}</td>
         <td>
         <td>
         <div className="dropdown">
@@ -98,7 +116,8 @@ export default function Trainers() {
         </td>
         </td>
       </tr>
-    ))):<tr>
+    )}
+    )):<tr>
               <td colSpan="7">No Trainers</td>
             </tr>}
   </tbody>

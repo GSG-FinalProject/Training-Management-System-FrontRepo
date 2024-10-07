@@ -10,6 +10,21 @@ export default function EditTrainee() {
   const [trainee, setTrainee] = useState(null);  
   const navigate = useNavigate();
 
+  const [trainers, setTrainers] = useState([]);
+const fetchTrainer = async () => {
+    try {
+      const { data } = await axios.get(`https://localhost:7107/api/Trainer`);
+      setTrainers(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTrainer();
+  }, []);
+
+
   const fetchTrainee = async () => {
     try {
       const response = await axios.get(`https://localhost:7107/api/Trainee/${id}`);
@@ -27,14 +42,14 @@ export default function EditTrainee() {
   const onSubmit = async (updatedData) => {
     try {
       const response = await axios.put(
-        `https://localhost:7105/api/Trainee/${id}`,
+        `https://localhost:7107/api/Trainee/${id}`,
         {
           id: updatedData.id,
           firstName: updatedData.firstName,
           lastName: updatedData.lastName,
           email: updatedData.email,
-          trainingProgram: updatedData.trainingProgram,
-          trainingHours: updatedData.trainingHours,
+          trainerId: updatedData.trainerId,
+         
         },
         {
           headers: {
@@ -42,8 +57,8 @@ export default function EditTrainee() {
           },
         }
       );
-      // console.log('kdscjnkjed',response.status)
-      if (response.status == 204) {
+      console.log('kdscjnkjed',response)
+      if (response.status == 200) {
         // console.log('jkjjnjjjjj')
         navigate('/dashboard/trainees'); 
       }
@@ -59,8 +74,7 @@ export default function EditTrainee() {
       firstName: '',  // Initialize firstName
       lastName: '',  // Initialize lastName
       email: '',  // Initialize email
-      trainingProgram: '',
-      trainingHours: '',
+      trainerId:'',
     },
     validationSchema: editTrainee,
     onSubmit,
@@ -75,8 +89,7 @@ export default function EditTrainee() {
         firstName: trainee.firstName || '',
         lastName: trainee.lastName || '',
         email: trainee.email || '',
-        trainingProgram: trainee.trainingProgram||'',
-        trainingHours: trainee.trainingHours||'',
+        trainerId: trainee.trainerId ||'',
       });
     }
   }, [trainee, id]);  
@@ -153,38 +166,24 @@ export default function EditTrainee() {
   ) : null}
 </div>
 
-<div className="form-item col-md-6 pt-2">
-  <label className="form-label ps-2" htmlFor="trainingProgram">Training Program</label>
-  <input
-    type="text"
-    className={`form-control ${formik.touched.trainingProgram && formik.errors.trainingProgram ? 'is-invalid' : ''}`}
-    id="trainingProgram"
-    name="trainingProgram"
-    value={formik.values.trainingProgram}
-    onChange={formik.handleChange}
-    onBlur={formik.handleBlur}
-  />
-  {formik.touched.trainingProgram && formik.errors.trainingProgram ? (
-    <div className="text-danger">{formik.errors.trainingProgram}</div>  // Display the error in red
-  ) : null}
-</div>
-
-<div className="form-item col-md-6 pt-2">
-  <label className="form-label ps-2" htmlFor="trainingHours">Training Hours</label>
-  <input
-    type="number"
-    className={`form-control ${formik.touched.trainingHours && formik.errors.trainingHours ? 'is-invalid' : ''}`}
-    id="trainingHours"
-    name="trainingHours"
-    value={formik.values.trainingHours}
-    onChange={formik.handleChange}
-    onBlur={formik.handleBlur}
-  />
-  {formik.touched.trainingHours && formik.errors.trainingHours ? (
-    <div className="text-danger">{formik.errors.trainingHours}</div>  // Display the error in red
-  ) : null}
-</div>
-
+<div className="col-md-6 pt-3">
+          <select
+            className="form-select"
+            name="trainerId"  // Ensure formik handles trainerId
+            value={formik.values.trainerId}  // Bind to formik's trainerId value
+            onChange={formik.handleChange}  // Formik change handler
+            onBlur={formik.handleBlur}  // Formik blur handler
+          >
+            <option value="" disabled>
+              Select Trainer
+            </option>
+            {trainers.map((trainer) => (
+              <option key={trainer.id} value={trainer.id}>
+                {trainer.firstName} {trainer.lastName}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <button
           className='w-auto btn btn-outline-warning mt-4'

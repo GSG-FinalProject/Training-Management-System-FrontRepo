@@ -139,7 +139,7 @@ export default function EditTraining() {
 
 
 
-<div className="row justify-content-center align-items-center">
+<div className="d-flex justify-content-center align-items-center">
     <button
           className='w-auto btn btn-outline-warning mt-4'
           type="submit"
