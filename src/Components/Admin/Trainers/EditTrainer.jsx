@@ -529,6 +529,21 @@ export default function EditTrainer() {
   const { id } = useParams();  // Get the trainer ID from the URL parameters
   const [trainer, setTrainer] = useState(null);  // Initialize trainer state to null
   const navigate = useNavigate();
+  const [trainings,setTrainings] = useState([]);
+  let [selectedTraining,setSelectedTraining] = useState('');
+  const fetchTrainings = async ()  => {
+      try{
+      const { data } = await axios.get(`https://localhost:7107/api/TrainingField`);
+      console.log(data)
+      setTrainings(data.data);
+    }
+      catch(error){
+       console.log(error);
+      }
+    };
+    useEffect(()=>{
+      fetchTrainings();
+    },[])
 
   // Fetch trainer data from the API
   const fetchTrainer = async () => {
@@ -548,12 +563,14 @@ export default function EditTrainer() {
   const onSubmit = async (updatedData) => {
     try {
       const response = await axios.put(
-        `https://localhost:7105/api/Trainer/${id}`,
+        `https://localhost:7107/api/Trainer/${id}`,
         {
           id: updatedData.id,
           firstName: updatedData.firstName,
           lastName: updatedData.lastName,
           email: updatedData.email,
+          bio:updatedData.bio,
+          trainingFieldId:selectedTraining,
         },
         {
           headers: {
@@ -578,6 +595,8 @@ export default function EditTrainer() {
       firstName: '',  // Initialize firstName
       lastName: '',  // Initialize lastName
       email: '',  // Initialize email
+      bio:'',
+      trainingFieldId:'',
     },
     validationSchema: editTrainer,
     onSubmit,
@@ -593,6 +612,8 @@ export default function EditTrainer() {
         firstName: trainer.firstName || '',
         lastName: trainer.lastName || '',
         email: trainer.email || '',
+        bio: trainer.bio||'',
+        trainingFieldId: trainer.trainingFieldId||'',
       });
     }
   }, [trainer, id]);  // Run this effect whenever trainer data or id changes
@@ -668,6 +689,57 @@ export default function EditTrainer() {
     <div className="text-danger">{formik.errors.email}</div>  // Display the error in red
   ) : null}
 </div>
+
+<div className="form-item col-md-6 pt-3">
+  <label className="form-label ps-2" htmlFor="Bio">Bio</label>
+  <input
+    type="text"
+    className={`form-control ${formik.touched.bio && formik.errors.bio ? 'is-invalid' : ''}`}
+    id="bio"
+    name="bio"
+    value={formik.values.bio}
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+  />
+  {formik.touched.bio && formik.errors.bio ? (
+    <div className="text-danger">{formik.errors.bio}</div>  // Display the error in red
+  ) : null}
+</div>
+{/* <div className="form-item col-md-6 pt-3">
+  <label className="form-label ps-2" htmlFor="trainingFieldId">Training FieldId</label>
+  <input
+    type="number"
+    className={`form-control ${formik.touched.trainingFieldId && formik.errors.trainingFieldId ? 'is-invalid' : ''}`}
+    id="trainingFieldId"
+    name="trainingFieldId"
+    value={formik.values.trainingFieldId}
+    onChange={formik.handleChange}
+    onBlur={formik.handleBlur}
+  />
+  {formik.touched.trainingFieldId && formik.errors.trainingFieldId ? (
+    <div className="text-danger">{formik.errors.trainingFieldId}</div>  // Display the error in red
+  ) : null}
+</div> */}
+<div className="col-md-6 pt-5">
+          <select
+          className="form-select"
+          aria-label="Default select example"
+          value={selectedTraining}
+          
+          onChange={(e) => {
+            formik.handleChange(e);
+            setSelectedTraining(e.target.value);
+          }}
+        >
+          <option value="" disabled>
+            Select Training Field
+          </option>
+          {trainings.map((training) => (
+            <option key={training.id} value={training.id}>{training.name}</option>
+          ))}
+        </select>
+        </div>
+        
 
 
         <button

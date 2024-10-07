@@ -29,6 +29,10 @@ The application also includes authentication features like login and logout for 
 - Manage Training programs.
 - Login and Logout functionality.
 
+
+https://github.com/user-attachments/assets/f4d7f2be-cbf8-4d00-9683-fbd638d15c2f
+
+
 ### Trainer
 - Add Courses for Trainees.
 - Assign Tasks to Trainees.
@@ -51,21 +55,17 @@ The application also includes authentication features like login and logout for 
 - **Package Management**: npm
 
 ## Screenshots
+###Main Page
+![Screenshot 2024-10-07 232248](https://github.com/user-attachments/assets/6e9414b0-06cb-4eae-9caf-053956959ed0)
+
+### Login page
+![Screenshot 2024-10-07 232328](https://github.com/user-attachments/assets/debc5c0a-b89b-42f9-b58c-226f25f3ac08)
 
 ### Admin Dashboard
-![Admin Dashboard](path-to-your-image/admin-dashboard.png)
+![Screenshot 2024-10-07 232117](https://github.com/user-attachments/assets/dc5443a9-fabd-4e9b-b145-b77457874d4b)
 
 ### Trainer Dashboard
-![Trainer Dashboard](path-to-your-image/trainer-dashboard.png)
-
-### Trainee Dashboard
-![Trainee Dashboard](path-to-your-image/trainee-dashboard.png)
-
-### Course Management
-![Course Management](path-to-your-image/course-management.png)
-
-### Task Submission
-![Task Submission](path-to-your-image/task-submission.png)
+![Screenshot 2024-10-07 232515](https://github.com/user-attachments/assets/2fca21e3-9643-4e70-9023-c9a7cd861df6)
 
 ## Installation
 
@@ -111,4 +111,7 @@ If you'd like to contribute to this project, please follow these steps:
    git push origin feature-branch
 5. **open pull Requests**
 
-  
+## Proposal Document
+You can view the proposal document 
+
+[Market Ready Developer Training Program.pdf](https://github.com/user-attachments/files/17284392/Market.Ready.Developer.Training.Program.pdf)

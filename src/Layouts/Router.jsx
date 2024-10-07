@@ -16,6 +16,7 @@ import AddTraining from '../Components/Admin/Trainings/AddTraining';
 import EditTraining from '../Components/Admin/Trainings/EditTraining';
 import TrainerDashboard from '../Components/Trainer/TrainerDashboard/TrainerDashboard'
 import TraineeDashboard from '../Components/Trainee/TraineeDashboard/TraineeDashboard';
+import MainPage from '../Components/MainPage/MainPage';
 export const router = createBrowserRouter([
   {
     path: "/TMS",
@@ -98,7 +99,11 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/login",
-    element: <Login/>
+    path: "/",
+    element: <MainPage/>,
+  },
+  {
+    path: '/login',
+    element: <Login />,
   }
 ]);

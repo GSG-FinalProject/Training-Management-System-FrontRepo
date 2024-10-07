@@ -28,6 +28,8 @@ const CourseManagement = () => {
             console.error('Error fetching courses:', error);
         }
     };
+    }, [baseUrl,courses]);
+
 
     // Select a course for update
     const handleCourseSelect = (course) => {

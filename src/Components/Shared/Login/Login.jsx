@@ -27,7 +27,7 @@ export default function Login() {
         navigate('/classRoom')
       }
       else if(userData.userType == 2){
-        navigate('/')
+        navigate('/TMS')
       }
   }},[userToken,userData,navigate])
     const onSubmit=async users=>{
@@ -43,7 +43,7 @@ export default function Login() {
               navigate('/classRoom')
             }
             else if(data.data.userType == 2){
-              navigate('/')
+              navigate('/TMS')
             }
             
             console.log('jjjjjjjjjjj',data)
