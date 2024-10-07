@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './TaskManagement.css';
-import { UserContext } from '../../../../Context/UserContext';
+// import { UserContext } from '../../../../Context/UserContext';
 
 const CourseManagement = () => {
     const [courses, setCourses] = useState([]);
@@ -9,7 +9,7 @@ const CourseManagement = () => {
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [newCourse, setNewCourse] = useState({ name: '', description: '', resoursesUrl: '', trainingFieldId: '' });
-    let {userToken,setUserToken} = useContext(UserContext);
+    // let {userToken,setUserToken} = useContext(UserContext);
 
     const baseUrl = 'https://localhost:7107/api';
     // Fetch courses 
@@ -62,7 +62,13 @@ const CourseManagement = () => {
         } else {
             if (newCourse.name && newCourse.description && newCourse.resoursesUrl) {
                 try {
-                    const response = await axios.post(`${baseUrl}/Courses/add`, newCourse);
+                    const response = await axios.post(`${baseUrl}/Courses/add`, newCourse,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${userToken}`,
+                        },
+                    });
                     setCourses([...courses, response.data.data]);
                     setNewCourse({ name: '', description: '', resoursesUrl: '', trainingFieldId: '' });
                     setSuccessMessage('Course created successfully');
@@ -77,7 +83,12 @@ const CourseManagement = () => {
     // Delete a course
     const handleDeleteCourse = async (courseId) => {
         try {
-            await axios.delete(`${baseUrl}/Courses/delete/${courseId}`);
+            await axios.delete(`${baseUrl}/Courses/delete/${courseId}`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`,
+                },
+            });
             setCourses(courses.filter(course => course.id !== courseId));
             setSuccessMessage('Course deleted successfully');
         } catch (error) {

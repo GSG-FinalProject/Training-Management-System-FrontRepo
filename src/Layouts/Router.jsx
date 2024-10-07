@@ -15,6 +15,10 @@ export const router = createBrowserRouter([
         path: "",
         element: <TraineeDashboard />,
       },
+      {
+        path: "*",
+        element: <h2>page not found --- Trainee dashboard</h2>,
+      }
     ],
   },
   {
@@ -22,6 +26,7 @@ export const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       {
+        path:"*",
         element: <h2>page not found --- DashboardAdmin</h2>,
       },
     ],
@@ -34,6 +39,10 @@ export const router = createBrowserRouter([
         path: "",
         element: <TrainerDashboard />,
       },
+      {
+        path: "*",
+        element: <h2>page not found --- Trainer dashboard</h2>,
+      }
     ],
   },
 ]);

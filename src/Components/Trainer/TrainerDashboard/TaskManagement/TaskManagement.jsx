@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './TaskManagement.css';
+// import { UserContext } from '../../../../Context/UserContext';
 
 const TaskManagement = () => {
     const [tasks, setTasks] = useState([]);
@@ -8,6 +9,7 @@ const TaskManagement = () => {
     const [newTask, setNewTask] = useState({ title: '', description: '', deadline: '', courseId: '' });
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    // let {userToken,setUserToken} = useContext(UserContext);
 
     const baseUrl = 'https://localhost:7107/api';
 
@@ -41,7 +43,12 @@ const TaskManagement = () => {
     const handleSaveTask = async () => {
         if (selectedTask) {
             try {
-                const response = await axios.put(`${baseUrl}Task/${selectedTask.id}`, newTask);
+                const response = await axios.put(`${baseUrl}Task/${selectedTask.id}`, newTask,{
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userToken}`,
+                    },
+                });
                 console.log(response.data);
                 setTasks(tasks.map(task => task.id === selectedTask.id ? response.data.data : task));
                 setNewTask({ title: '', description: '', deadline: '', courseId: '' });
@@ -54,7 +61,12 @@ const TaskManagement = () => {
         } else {
             if (newTask.title && newTask.description && newTask.deadline) {
                 try {
-                    const response = await axios.post(`${baseUrl}/Task`, newTask);
+                    const response = await axios.post(`${baseUrl}/Task`, newTask,{
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${userToken}`,
+                        },
+                    });
                     setCourses([...tasks, response.data.data]);
                     setNewCourse({ name: '', description: '', resoursesUrl: '', trainingFieldId: '' });
                     setSuccessMessage('Task created successfully');
@@ -70,7 +82,12 @@ const TaskManagement = () => {
     // Delete a task
     const handleDeleteTask = async (taskId) => {
         try {
-            await axios.delete(`${baseUrl}/Task/${taskId}`);
+            await axios.delete(`${baseUrl}/Task/${taskId}`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`,
+                },
+            });
             setTasks(tasks.filter(task => task.id !== taskId));
             setSuccessMessage('Task deleted successfully');
         } catch (error) {

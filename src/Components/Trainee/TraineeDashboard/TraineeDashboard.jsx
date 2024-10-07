@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './TraineeDashboard.css';
+// import { UserContext } from '../../../Context/UserContext';
 
 function TraineeDashboard() {
     const [course, setCourse] = useState([]);
@@ -15,11 +16,27 @@ function TraineeDashboard() {
     const [completedFiles, setCompletedFiles] = useState([]);
     const [completedAssignments, setCompletedAssignments] = useState([]);
     const [trainingProgress, setTrainingProgress] = useState(0);
-    // Fetch user name, course data, and assignments when the component loads
+    const [traineeId, setTraineeId] = useState(null);
+
+        // let {userToken,setUserToken} = useContext(UserContext);
+        
+        // const fetchTraineeId = async () => {
+        //     try {
+        //         const response = await axios.get('/api/Users/get-user-id-from-token', {
+        //             headers: {
+        //                 'Authorization': `Bearer ${userToken}`
+        //             }
+        //         });
+        //         setTraineeId(response.data); 
+        //     } catch (error) {
+        //         console.error('Error fetching trainee ID:', error);
+        //     }
+        // };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                //const userResponse = await axios.get('/api/user'); // Replace with the actual endpoint
+                //const userResponse = await axios.get('/api/user');
                 // setUserName(userResponse.data.name);
                 const courseResponse = await axios.get('https://localhost:7107/api/Courses');
                 setCourse(courseResponse.data.data);
@@ -61,12 +78,13 @@ function TraineeDashboard() {
         const formData = new FormData();
         formData.append('taskId', selectedAssignment.taskId);
         formData.append('filePath', file); 
-        formData.append('traineeId', 'your-trainee-id');
+        formData.append('traineeId', traineeId);
     
         try {
             const response = await axios.post('https://localhost:7107/api/submission', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${userToken}`,
                 },
             });
     

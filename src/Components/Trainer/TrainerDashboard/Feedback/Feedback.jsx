@@ -24,29 +24,29 @@ const Feedback = () => {
     fetchSubmissions();
   }, []);
 
-  const handleFeedbackChange = useCallback((submissionId, feedback) => {
-    setFeedbacks(prevFeedbacks => ({
-      ...prevFeedbacks,
-      [submissionId]: feedback,
-    }));
-  }, []);
+  // const handleFeedbackChange = useCallback((submissionId, feedback) => {
+  //   setFeedbacks(prevFeedbacks => ({
+  //     ...prevFeedbacks,
+  //     [submissionId]: feedback,
+  //   }));
+  // }, []);
 
-  const handleFeedbackSubmit = useCallback(async (submissionId) => {
-    setSubmitting(prevSubmitting => ({ ...prevSubmitting, [submissionId]: true }));
-    setError('');
-    setSuccessMessage(''); // Clear any previous success message
+  // const handleFeedbackSubmit = useCallback(async (submissionId) => {
+  //   setSubmitting(prevSubmitting => ({ ...prevSubmitting, [submissionId]: true }));
+  //   setError('');
+  //   setSuccessMessage(''); // Clear any previous success message
 
-    const feedback = feedbacks[submissionId] || '';
+  //   const feedback = feedbacks[submissionId] || '';
 
-    try {
-      await axios.post(`/api/tasks/:taskId/feedback`, { feedback, submissionId });
-      setSuccessMessage(`Feedback for submission ${submissionId} submitted successfully!`);
-    } catch (error) {
-      setError(`Error submitting feedback for submission ${submissionId}.`);
-    } finally {
-      setSubmitting(prevSubmitting => ({ ...prevSubmitting, [submissionId]: false }));
-    }
-  }, [feedbacks]);
+  //   try {
+  //     await axios.post(`/api/tasks/:taskId/feedback`, { feedback, submissionId });
+  //     setSuccessMessage(`Feedback for submission ${submissionId} submitted successfully!`);
+  //   } catch (error) {
+  //     setError(`Error submitting feedback for submission ${submissionId}.`);
+  //   } finally {
+  //     setSubmitting(prevSubmitting => ({ ...prevSubmitting, [submissionId]: false }));
+  //   }
+  // }, [feedbacks]);
 
   return (
     <div className="feedback-management">
