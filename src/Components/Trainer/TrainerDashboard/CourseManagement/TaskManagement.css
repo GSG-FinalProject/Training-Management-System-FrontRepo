@@ -4,63 +4,64 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 600px;
+    width: 70%;
 }
 
-.form-container, .content-update {
+.task-manager .form-container, .content-update {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
 }
 
-.form-container input,
-.form-container textarea,
-.content-update select,
-.content-update input {
+.task-manager .form-container input,
+.task-manager .form-container textarea,
+.task-manager .content-update select,
+.task-manager .content-update input {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #b1c9ef;
-    width: 100%;
+    width: 50%;
     box-sizing: border-box;
 }
 
-.form-container button,
-.content-update button {
+.task-manager .form-container button,
+.task-manager .content-update button {
     padding: 10px;
     background-color: #395886;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 50%;
 }
-.buttonContainer{
+.task-manager .buttonContainer{
     display: flex;
     gap: 10px;
 }
 
-.success-message {
+.task-manager .success-message {
     color: green;
     margin-top: 10px;
 }
 
-.error-message {
+.task-manager .error-message {
     color: red;
     margin-top: 10px;
 }
 
-.task-list .card {
+.task-manager .task-list .card {
     background-color: #b1c9ef;
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 8px;
 }
 
-.card h3 {
+.task-manager .card h3 {
     margin: 0;
 }
 
-.card button {
+.task-manager .card button {
     margin-top: 10px;
     padding: 5px 10px;
     background-color: #638ecb;
@@ -70,29 +71,29 @@
     cursor: pointer;
 }
 
-.card button:hover {
+.task-manager .card button:hover {
     background-color: #395886;
 }
-.course-management {
+.task-manager .course-management {
     margin-top: 20px;
 }
 
-.course-list .card {
+.task-manager .course-list .card {
     background-color: #d6e4f0;
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 8px;
 }
 
-.course-list .card h4 {
+.task-manager .course-list .card h4 {
     margin: 0;
 }
 
-.course-list .card p {
+.task-manager .course-list .card p {
     margin: 5px 0;
 }
 
-.course-list .card button {
+.task-manager .course-list .card button {
     margin-top: 10px;
     padding: 5px 10px;
     background-color: #b56576;
@@ -102,27 +103,47 @@
     cursor: pointer;
 }
 
-.course-list .card button:hover {
+.task-manager .course-list .card button:hover {
     background-color: #9d4957;
 }
 
 @media (max-width: 600px) {
-    .form-container {
+    .task-manager .form-container {
         flex-direction: column;
         align-items: stretch;
     }
 
-    .form-container input,
-    .form-container textarea,
-    .form-container button {
+    .task-manager .form-container input,
+    .task-manager .form-container textarea,
+    .task-manager .form-container button {
         width: 100%;
     }
 
-    .task-list .card {
+    .task-manager .task-list .card {
         padding: 10px;
     }
 
-    .task-manager {
+    .task-manager .task-manager {
         padding: 15px;
     }
+}
+.task-manager .course{
+    background-color:#d6e4f0;
+    padding: 20px;
+    border-radius: 8px;
+}
+.task-manager ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.task-manager ul button{
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #638ecb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }

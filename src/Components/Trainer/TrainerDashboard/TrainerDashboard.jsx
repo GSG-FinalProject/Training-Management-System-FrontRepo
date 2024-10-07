@@ -32,12 +32,12 @@ const TrainerDashboard = () => {
                     <button className='button' onClick={() => setActiveTab('course')}>Manage Course</button>
                     <button className='button' onClick={() => setActiveTab('tasks')}>Manage Tasks</button>
                     <button className='button' onClick={() => setActiveTab('feedback')}>Feedback</button>
-                    <button className='button' onClick={() => setActiveTab('profile')}>Profile</button>
+                    {/* <button className='button' onClick={() => setActiveTab('profile')}>Profile</button> */}
                 </div>
                 {activeTab === 'course' && <CourseManagement />}
                 {activeTab === 'tasks' && <TaskManagement />}
                 {activeTab === 'feedback' && <Feedback />}
-                {activeTab === 'profile' && <Profile />}
+                {/* {activeTab === 'profile' && <Profile />} */}
             </div>
         </>
     );
