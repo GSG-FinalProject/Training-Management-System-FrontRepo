@@ -18,7 +18,7 @@ import TrainerDashboard from '../Components/Trainer/TrainerDashboard/TrainerDash
 import TraineeDashboard from '../Components/Trainee/TraineeDashboard/TraineeDashboard';
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/TMS",
     element: <TraineeLayout />,
     children: [
       {

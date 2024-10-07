@@ -1,4 +1,4 @@
-/* body {
+body {
     position: relative;
     background-color: #F0F3FA;
 }
@@ -143,23 +143,24 @@
 }
 
 
-.heading {
+.traineeDashboard .heading {
     margin-top: 70px;
 }
 
-h1,
-h2,
-h3 {
+.traineeDashboard h1,
+.traineeDashboard h2,
+.traineeDashboard h3 {
     color: #395886;
     margin-bottom: 15px;
 }
 
-.dashboard {
+.traineeDashboard {
     margin: 20px;
     min-height: 100vh;
+    margin-bottom: 70px;
 }
 
-.container {
+.traineeDashboard .container {
     max-width: 97%;
     margin: 0 auto;
     margin-top: 70px;
@@ -169,33 +170,33 @@ h3 {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.row {
+.traineeDashboard .row {
     display: flex;
     justify-content: space-between;
     gap: 20px;
     min-height: calc(100vh - 180px);
 }
 
-ul {
+.traineeDashboard ul {
     list-style: none;
     padding: 0;
 }
 
-li {
+.traineeDashboard li {
     margin-bottom: 20px;
 }
 
-a {
+.traineeDashboard a {
     text-decoration: none;
     color: #395886;
     font-weight: bold;
 }
 
-a:hover {
+.traineeDashboard a:hover {
     text-decoration: underline;
 }
 
-button {
+.traineeDashboard button {
     background-color: #638ECB;
     color: white;
     border: none;
@@ -205,43 +206,43 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+.traineeDashboard button:hover {
     background-color: #395886;
 }
 
-.deadline {
+.traineeDashboard .deadline {
     margin-top: 10px;
 }
 
-.assignment-details {
+.traineeDashboard .assignment-details {
     background-color: #D5DEEF;
     padding: 15px;
     border-radius: 8px;
     margin-top: 20px;
 }
 
-form {
+.traineeDashboard form {
     margin-top: 20px;
 }
 
-input[type="file"] {
+.traineeDashboard input[type="file"] {
     margin: 10px 0;
     padding: 5px;
     border: 1px solid #B1C9EF;
     border-radius: 4px;
 }
 
-button[type="submit"] {
+.traineeDashboard button[type="submit"] {
     background-color: #8AAEE0;
     padding: 10px;
 }
 
-button[type="submit"]:hover {
+.traineeDashboard button[type="submit"]:hover {
     background-color: #638ECB;
 }
 
-.course,
-.assignment {
+.traineeDashboard .course,
+.traineeDashboard .assignment {
     background-color: #B1C9EF;
     padding: 15px;
     border-radius: 8px;
@@ -249,11 +250,11 @@ button[type="submit"]:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.course h3 {
+.traineeDashboard .course h3 {
     color: #000000;
 }
 
-.modal-overlay {
+.traineeDashboard .traineeDashboard .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -266,7 +267,7 @@ button[type="submit"]:hover {
     z-index: 1000;
 }
 
-.modal-content {
+.traineeDashboard .modal-content {
     background-color: #F0F3FA;
     padding: 20px;
     border-radius: 8px;
@@ -276,7 +277,7 @@ button[type="submit"]:hover {
     text-align: center;
 }
 
-.modal-close {
+.traineeDashboard .modal-close {
     background-color: #638ECB;
     color: white;
     border: none;
@@ -287,12 +288,12 @@ button[type="submit"]:hover {
     transition: background-color 0.3s ease;
 }
 
-.modal-close:hover {
+.traineeDashboard .modal-close:hover {
     background-color: #395886;
 }
 
-.course-section,
-.assignments-section {
+.traineeDashboard .course-section,
+.traineeDashboard .assignments-section {
     background-color: #B1C9EF;
     padding: 15px;
     border-radius: 8px;
@@ -303,13 +304,13 @@ button[type="submit"]:hover {
 
 }
 
-.course-section h2,
-.assignments-section h2 {
+.traineeDashboard .course-section h2,
+.traineeDashboard .assignments-section h2 {
     color: #395886;
     margin: 0;
 }
 
-.notification {
+.traineeDashboard .notification {
     background-color: #D5DEEF;
     padding: 10px;
     border-radius: 5px;
@@ -343,4 +344,14 @@ button[type="submit"]:hover {
 .assignment.completed {
     text-decoration: line-through;
     color: gray;
-} */
+}
+.traineeDashboard .course{
+    background-color:#d6e4f0;
+    padding: 20px;
+    border-radius: 8px;
+}
+.traineeDashboard .task{
+    background-color:#d6e4f0;
+    padding: 20px;
+    border-radius: 8px;
+}

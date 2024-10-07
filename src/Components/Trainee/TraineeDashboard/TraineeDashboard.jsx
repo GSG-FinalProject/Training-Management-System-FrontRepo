@@ -18,7 +18,7 @@ function TraineeDashboard() {
     const [trainingProgress, setTrainingProgress] = useState(0);
     const [traineeId, setTraineeId] = useState(null);
 
-        let {userToken,setUserToken,userId} = useContext(UserContext);
+        let {userToken,setUserToken,userId,userData} = useContext(UserContext);
         
         // const fetchTraineeId = async () => {
         //     try {
@@ -137,10 +137,10 @@ function TraineeDashboard() {
                 <div className="circle"></div>
                 <div className="circle"></div>
             </div>
-            <div className="dashboard">
+            <div className="traineeDashboard">
                 <h1 className='heading'>Trainee Dashboard</h1>
-                {/* Display user name
-                {userName && <h2>Hi, {userName}!</h2>} */}
+                
+                {/* {userName && <h2>Hi, {userData.firstName}!</h2>} */}
                 {/* <div className="progress-tracker">
                     <div className="progress-bar">
                         <div className="progress-bar-filled" style={{ width: `${trainingProgress}%` }}></div>
@@ -159,12 +159,13 @@ function TraineeDashboard() {
                     <>
                         {/* Display course and its files/links */}
                         <div className="course-section">
+                            <h2>Courses</h2>
                             {course && course.length > 0 ? (
                                 <ul>
                                     {course.map((courseItem, index) => (
-                                        <li key={index}>
-                                            <h2>{courseItem.name}</h2>
-                                            <p>{courseItem.description}</p>
+                                        <li key={index} className='course'>
+                                            <h2>Course Name: {courseItem.name}</h2>
+                                            <p>Course description: {courseItem.description}</p>
                                             <a href={courseItem.resoursesUrl} download>
                                                 {courseItem.resoursesUrl ? 'tap here to view the Resource' : 'No Resources Available'}
                                             </a>
@@ -181,7 +182,7 @@ function TraineeDashboard() {
                             {assignments.length > 0 ? (
                                 <ul>
                                     {assignments.map((assignment) => (
-                                        <li key={assignment.id} className={`assignment`}>
+                                        <li key={assignment.id} className="task">
                                             <a onClick={() => handleAssignmentClick(assignment.id)}>
                                                 {assignment.title}
                                             </a>

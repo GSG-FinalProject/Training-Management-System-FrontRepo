@@ -81,8 +81,7 @@ const logOut = ()=>{
       {dropdownVisible && (
         <div className="dropdown" ref={dropdownRef}>
           <ul>
-            <li> <li><button type="button" onClick={logOut}>Logout</button></li>
-            </li>
+            <li><button type="button" onClick={logOut}><a href="">Logout</a></button></li>
           </ul>
         </div>
       )}

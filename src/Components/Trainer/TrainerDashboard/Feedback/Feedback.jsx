@@ -1,14 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import axios from 'axios';
 import './Feedback.css';
+import { UserContext } from '../../../../Context/UserContext';
 
 const Feedback = () => {
   const [submissions, setSubmissions] = useState([]);
   const [feedbacks, setFeedbacks] = useState({});
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState(''); // State to hold success message
+  const [message, setMessage] = useState(''); // Unified state for success and error messages
+  const [messageType, setMessageType] = useState(''); // To track if it's success or error
   const [submitting, setSubmitting] = useState({});
+  const [ratings, setRatings] = useState({}); // State for ratings
+
+  let { userId } = useContext(UserContext);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -16,7 +20,8 @@ const Feedback = () => {
         const response = await axios.get('https://localhost:7107/api/Submission');
         setSubmissions(response.data.data);
       } catch (error) {
-        setError('Error fetching submissions.');
+        setMessage('Error fetching submissions.');
+        setMessageType('error');
       } finally {
         setLoading(false);
       }
@@ -24,29 +29,47 @@ const Feedback = () => {
     fetchSubmissions();
   }, []);
 
-  // const handleFeedbackChange = useCallback((submissionId, feedback) => {
-  //   setFeedbacks(prevFeedbacks => ({
-  //     ...prevFeedbacks,
-  //     [submissionId]: feedback,
-  //   }));
-  // }, []);
+  const handleFeedbackChange = useCallback((submissionId, feedback) => {
+    setFeedbacks(prevFeedbacks => ({
+      ...prevFeedbacks,
+      [submissionId]: feedback,
+    }));
+  }, []);
 
-  // const handleFeedbackSubmit = useCallback(async (submissionId) => {
-  //   setSubmitting(prevSubmitting => ({ ...prevSubmitting, [submissionId]: true }));
-  //   setError('');
-  //   setSuccessMessage(''); // Clear any previous success message
+  const handleRatingChange = useCallback((submissionId, rating) => {
+    setRatings(prevRatings => ({
+      ...prevRatings,
+      [submissionId]: rating,
+    }));
+  }, []);
 
-  //   const feedback = feedbacks[submissionId] || '';
+  const handleFeedbackSubmit = useCallback(async (submissionId) => {
+    setSubmitting(prevSubmitting => ({ ...prevSubmitting, [submissionId]: true }));
+    setMessage(''); // Clear previous message
+    setMessageType('');
 
-  //   try {
-  //     await axios.post(`/api/tasks/:taskId/feedback`, { feedback, submissionId });
-  //     setSuccessMessage(`Feedback for submission ${submissionId} submitted successfully!`);
-  //   } catch (error) {
-  //     setError(`Error submitting feedback for submission ${submissionId}.`);
-  //   } finally {
-  //     setSubmitting(prevSubmitting => ({ ...prevSubmitting, [submissionId]: false }));
-  //   }
-  // }, [feedbacks]);
+    const feedback = feedbacks[submissionId] || '';
+    const rating = ratings[submissionId] || 0;
+    const submissionDetails = submissions.find(sub => sub.id === submissionId);
+
+    const payload = {
+      comment: feedback,
+      rating: rating,
+      trainerId: userId,
+      submissionId: submissionDetails.id,
+    };
+
+    try {
+      await axios.post(`https://localhost:7107/api/Feedback`, payload);
+      setMessage(`Feedback for submission ${submissionId} submitted successfully!`);
+      setMessageType('success');
+    } catch (error) {
+      setMessage(`Error submitting feedback for submission ${submissionId}: ${error.response ? error.response.data : error.message}`);
+      setMessageType('error');
+    } finally {
+      setSubmitting(prevSubmitting => ({ ...prevSubmitting, [submissionId]: false }));
+    }
+  }, [feedbacks, ratings, submissions, userId]);
 
   return (
     <div className="feedback-management">
@@ -54,35 +77,52 @@ const Feedback = () => {
 
       {loading ? (
         <p>Loading submissions...</p>
-      ) : error ? (
-        <p className="error-message">{error}</p>
+      ) : messageType === 'error' ? (
+        <p className="error-message">{message}</p>
       ) : (
         <>
           <ul>
             {submissions.map(submission => (
               <li key={submission.id} className="submission-item">
                 <div className="submission-info">
-                  <strong>{submission.studentName}</strong> - <a href={submission.link} target="_blank" rel="noopener noreferrer">View Submission</a>
+                  <strong>{submission.studentName}</strong> - <a href={submission.filePath} target="_blank" rel="noopener noreferrer">View Submission</a>
+                  <p>Submitted At: {submission.submittedAt}</p>
                 </div>
-                <textarea
-                  value={feedbacks[submission.id] || ''}
-                  onChange={(e) => handleFeedbackChange(submission.id, e.target.value)}
-                  placeholder="Write feedback"
-                  disabled={submitting[submission.id]}
-                />
-                <button 
-                  onClick={() => handleFeedbackSubmit(submission.id)} 
-                  disabled={submitting[submission.id]} 
-                >
-                  {submitting[submission.id] ? 'Submitting...' : 'Submit Feedback'}
-                </button>
+
+                {/* Only show the feedback form if the submission doesn't already have feedback */}
+                {submission.feedback ? (
+                  <p className="feedback-exists">Feedback already provided: {submission.feedback.comment}</p>
+                ) : (
+                  <>
+                    <textarea
+                      value={feedbacks[submission.id] || ''}
+                      onChange={(e) => handleFeedbackChange(submission.id, e.target.value)}
+                      placeholder="Write feedback"
+                      disabled={submitting[submission.id]}
+                    />
+                    <input
+                      type="number"
+                      placeholder="Rating (0-10)"
+                      value={ratings[submission.id] || ''}
+                      onChange={(e) => handleRatingChange(submission.id, parseInt(e.target.value))}
+                      min="0"
+                      max="10"
+                      disabled={submitting[submission.id]}
+                    />
+                    <button 
+                      onClick={() => handleFeedbackSubmit(submission.id)} 
+                      disabled={submitting[submission.id] || !feedbacks[submission.id] || !ratings[submission.id]} // Disable if no feedback or rating
+                    >
+                      {submitting[submission.id] ? 'Submitting...' : 'Submit Feedback'}
+                    </button>
+                  </>
+                )}
               </li>
             ))}
           </ul>
 
           {/* Conditionally render success or error message */}
-          {successMessage && <p className="success-message">{successMessage}</p>}
-          {error && <p className="error-message">{error}</p>}
+          {messageType === 'success' && <p className="success-message">{message}</p>}
         </>
       )}
     </div>
