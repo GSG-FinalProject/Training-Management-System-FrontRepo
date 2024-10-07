@@ -111,4 +111,7 @@ If you'd like to contribute to this project, please follow these steps:
    git push origin feature-branch
 5. **open pull Requests**
 
-  
+## Proposal Document
+You can view the proposal document 
+
+[Market Ready Developer Training Program.pdf](https://github.com/user-attachments/files/17284392/Market.Ready.Developer.Training.Program.pdf)
