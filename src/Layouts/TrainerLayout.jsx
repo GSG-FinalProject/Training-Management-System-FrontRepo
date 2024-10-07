@@ -7,9 +7,9 @@ import TrainerRoute from '../Components/Auth/ProtectedRoutes/TrainerRoute'
 export default function TrainerLayout() {
   return (
     <TrainerRoute>
-      <Navbar/>
+      {/* <Navbar/> */}
     <Outlet/>
-    <Footer/>
+    {/* <Footer/> */}
     </TrainerRoute>
     
     
