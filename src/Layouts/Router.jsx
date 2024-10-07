@@ -1,6 +1,6 @@
 import React from 'react'
 import {createBrowserRouter,} from "react-router-dom";
-import StudentLayout from './TraineeLayout';
+import TraineeLayout from './TraineeLayout';
 import AdminLayout from './AdminLayout';
 import TrainerLayout from './TrainerLayout';
 import Login from '../Components/Shared/Login/Login';
@@ -14,19 +14,21 @@ import EditTrainee from '../Components/Admin/Trainees/EditTrainee';
 import Trainings from '../Components/Admin/Trainings/Trainings';
 import AddTraining from '../Components/Admin/Trainings/AddTraining';
 import EditTraining from '../Components/Admin/Trainings/EditTraining';
+import TrainerDashboard from '../Components/Trainer/TrainerDashboard/TrainerDashboard'
+import TraineeDashboard from '../Components/Trainee/TraineeDashboard/TraineeDashboard';
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <StudentLayout />,
+    element: <TraineeLayout />,
     children: [
-      // {
-      //   path: "login",
-      //   element: <Login/>,
-      // },
+      {
+        path: "",
+        element: <TraineeDashboard />,
+      },
       {
         path: "*",
-        element: <h2>page not found --- Student</h2>,
-      },
+        element: <h2>page not found --- Trainee dashboard</h2>,
+      }
     ],
   },
 
@@ -82,13 +84,17 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "classroom",
+    path: "/classroom",
     element: <TrainerLayout />,
     children: [
       {
-        path: "*",
-        element: <h2>page not found --- Trainer</h2>,
+        path: "",
+        element: <TrainerDashboard />,
       },
+      {
+        path: "*",
+        element: <h2>page not found --- Trainer dashboard</h2>,
+      }
     ],
   },
   {
