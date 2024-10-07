@@ -10,7 +10,7 @@ import { UserContext } from '../../../Context/UserContext';
 
 export default function AddTrainer() {
   const [trainings,setTrainings] = useState([]);
-  let [selectedTraining,setSelectedTraining] = useState(null);
+  let [selectedTraining,setSelectedTraining] = useState('');
   let {userToken,setUserToken,userId , setUserId,userData,setUserData} = useContext(UserContext);
 
   const initialValues={

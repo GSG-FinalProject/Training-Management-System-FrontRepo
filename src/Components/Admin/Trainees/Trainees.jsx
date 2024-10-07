@@ -9,6 +9,16 @@ import { Link } from 'react-router-dom';
 export default function Trainees() {
   let [trainees,setTrainees] = useState([]);
   const[loading,setLoading] = useState(true);
+  const [trainers, setTrainers] = useState([]);
+
+  const fetchTrainer = async () => {
+      try {
+        const { data } = await axios.get(`https://localhost:7107/api/Trainer`);
+        setTrainers(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
   const fetchTrainees = async ()  => {
     try{
     const { data } = await axios.get(`https://localhost:7107/api/Trainee`);
@@ -54,6 +64,7 @@ export default function Trainees() {
   };
   useEffect(() => {
     fetchTrainees();
+    fetchTrainer();
   }, []);
   // fetchTrainers();
   return (
@@ -70,16 +81,20 @@ export default function Trainees() {
       <th scope="col">First name</th>
       <th scope="col">Last name</th>
       <th scope="col">Email</th>
+      <th scope='col'>Trainer Name</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
-    {trainees.length?(trainees.map((trainee,index) => (
+    {trainees.length?(trainees.map((trainee,index) => {
+      const trainer = trainers.find(trainer => trainer.id === trainee.trainerId);
+      return(
       <tr key={trainee.id}>
         <th scope="row">{++index}</th>
         <td>{trainee.firstName}</td>
         <td>{trainee.lastName}</td>
         <td>{trainee.email}</td>
+        <td>{trainer ? `${trainer.firstName} ${trainer.lastName}` : 'No Training Field'}</td>
         <td>
         <div className="dropdown">
   <button className="border-0 bg-transparent dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -95,7 +110,7 @@ export default function Trainees() {
 
         </td>
       </tr>
-    ))):<tr>
+    )})):<tr>
               <td colSpan="7">No Trainees</td>
             </tr>}
   </tbody>
