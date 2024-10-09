@@ -17,7 +17,7 @@ const CourseManagement = () => {
     // Fetch courses
     useEffect(() => {
         fetchCourses();
-    }, []);
+    }, [baseUrl,courses]);
     
     const fetchCourses = async () => {
         try {
@@ -27,8 +27,9 @@ const CourseManagement = () => {
             setErrorMessage('Failed to fetch courses');
             console.error('Error fetching courses:', error);
         }
-    };
-    }, [baseUrl,courses]);
+    }
+    
+    // , [];
 
 
     // Select a course for update

@@ -147,9 +147,10 @@ export default function AddTrainer() {
     
     <>
     <h2 className='ps-4 pt-4'>Add Trainer</h2>
-    <form onSubmit={formik.handleSubmit} className="row justify-content-center align-items-center w-75 ps-4 pt-5 gap-3">
-        {renderInputs}
-        <div className="col-md-6">
+    <form onSubmit={formik.handleSubmit} className="row justify-content-center align-items-center w-75 p-5 pt-5 gap-3  ">
+      {/* <div className="row justify-content-center align-items-center p-4 gap-3"> */}
+                {renderInputs}
+        <div className="col-md-8">
           <select
           className="form-select p-3"
           aria-label="Default select example"
@@ -168,9 +169,11 @@ export default function AddTrainer() {
           ))}
         </select>
         </div>
-        
+        <div className="row justify-content-center align-items-center">
         <button className='w-auto btn btn-outline-primary'  type="submit"
-              disabled={formik.isSubmitting || Object.keys(formik.errors).length > 0 || Object.keys(formik.touched).length === 0 || !selectedTraining}>Add</button>
+              disabled={formik.isSubmitting || Object.keys(formik.errors).length > 0 || Object.keys(formik.touched).length === 0 || !selectedTraining}>Add</button></div>
+      {/* </div> */}
+
     </form>
     </>
     
