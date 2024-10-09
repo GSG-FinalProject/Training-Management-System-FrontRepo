@@ -1,13 +1,13 @@
 import * as yup from 'yup';
 
 export const loginScheme = yup.object({
-    email:yup.string().required('Email is required').min(6,'your Email must have at least 6 characters').max(30,'your Email must have at most 30 characters'),
+    email:yup.string().required('Email is required').email('Please enter a valid email address'),
     password:yup.string().required('Password is required').min(6,'your Password must have at least 6 characters').max(30,'your Password must have at most 30 characters'),
     
  })
 
  export const addTrainer = yup.object({
-    email:yup.string().required('Email is required').min(6,'your Email must have at least 6 characters').max(30,'your Email must have at most 30 characters'),
+    email:yup.string().required('Email is required').email('Please enter a valid email address'),
     password:yup.string().required('Password is required').min(6,'your Password must have at least 6 characters').max(30,'your Password must have at most 30 characters'),
     firstName:yup.string().required('First name is required'),
     lastName:yup.string().required('Last name is required'),
@@ -20,7 +20,7 @@ export const loginScheme = yup.object({
    
 })
  export const editTrainer = yup.object({
-    email:yup.string().required('Email is required').min(6,'your Email must have at least 6 characters').max(30,'your Email must have at most 30 characters'),
+    email:yup.string().required('Email is required').email('Please enter a valid email address'),
     firstName:yup.string().required('First name is required'),
     lastName:yup.string().required('Last name is required'),
     bio:yup.string().required('Bio is required'),
@@ -31,14 +31,14 @@ export const loginScheme = yup.object({
    
 })
  export const editTrainee = yup.object({
-   email:yup.string().required('Email is required').min(6,'your Email must have at least 6 characters').max(30,'your Email must have at most 30 characters'),
+   email:yup.string().required('Email is required').email('Please enter a valid email address'),
    firstName:yup.string().required('First name is required'),
    lastName:yup.string().required('Last name is required'),
   
 })
 
  export const addTrainee = yup.object({
-    email:yup.string().required('Email is required').min(6,'your Email must have at least 6 characters').max(30,'your Email must have at most 30 characters'),
+    email:yup.string().required('Email is required').email('Please enter a valid email address'),
     password:yup.string().required('Password is required').min(6,'your Password must have at least 6 characters').max(30,'your Password must have at most 30 characters'),
     firstName:yup.string().required('First name is required'),
     lastName:yup.string().required('Last name is required'),

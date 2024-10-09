@@ -182,7 +182,7 @@ const TaskManagement = () => {
             }
         };
         fetchTasks();
-    }, [baseUrl]);
+    }, [baseUrl,tasks]);
 
     // Select a task for update
     const handleTaskSelect = (task) => {

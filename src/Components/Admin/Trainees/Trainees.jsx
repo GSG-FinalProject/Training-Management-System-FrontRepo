@@ -66,10 +66,35 @@ export default function Trainees() {
     fetchTrainees();
     fetchTrainer();
   }, []);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (event) => {
+      setSearchTerm(event.target.value);
+    };
+  
+    const filteredTrainees = trainees.filter((trainee) => {
+      return (
+        trainee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        trainee.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        trainee.email.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
   // fetchTrainers();
   return (
     <>
-   <h1 className='ps-4 py-3'>Trainees</h1>
+  <div className="d-flex mt-3 mb-2 justify-content-between border-bottom py-3">
+        <h1 className='ps-4 main-col'>Trainees</h1>
+        <form className="me-3" role="search">
+          <input
+            className="form-control me-5"
+            type="search"
+            placeholder="Search by name/email"
+            aria-label="Search"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </form>
+      </div>
    <div className="table-container ps-3">
    {loading ? (
           <Loading/> 
@@ -86,7 +111,7 @@ export default function Trainees() {
     </tr>
   </thead>
   <tbody>
-    {trainees.length?(trainees.map((trainee,index) => {
+    {filteredTrainees.length?(filteredTrainees.map((trainee,index) => {
       const trainer = trainers.find(trainer => trainer.id === trainee.trainerId);
       return(
       <tr key={trainee.id}>
