@@ -42,7 +42,7 @@ const CourseManagement = () => {
             console.error('Error fetching training fields:', error);
         }
     };
-    }
+    
     
     // , [];
 

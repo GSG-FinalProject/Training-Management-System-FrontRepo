@@ -25,7 +25,7 @@ const TaskManagement = () => {
                 console.error('Error fetching tasks:', error);
             }
         };
-
+    
         const fetchCourses = async () => {
             try {
                 const response = await axios.get(`${baseUrl}/Courses`);
@@ -35,11 +35,10 @@ const TaskManagement = () => {
                 console.error('Error fetching courses:', error);
             }
         };
-
+    
         fetchTasks();
         fetchCourses(); // Fetch courses on component mount
-    }, [baseUrl]);
-    }, [baseUrl,tasks]);
+    }, [baseUrl]); // Only use baseUrl as a dependency
 
     // Select a task for update
     const handleTaskSelect = (task) => {
