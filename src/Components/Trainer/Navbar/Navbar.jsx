@@ -36,19 +36,19 @@ const logOut = ()=>{
 
 
   // Fetch user photo from the API //i need to delete it if there is no profile pic for the trainer
-  useEffect(() => {
-    axios.get('/api/user-profile')
-      .then(response => {
-        const photoUrl = response.data.photoUrl;
-        if (photoUrl) {
-          setUserPhoto(photoUrl);
-        }
-      })
-      .catch(error => {
-        console.error("Error fetching user profile", error);
-        setUserPhoto('src/assets/user.png');
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('/api/user-profile')
+  //     .then(response => {
+  //       const photoUrl = response.data.photoUrl;
+  //       if (photoUrl) {
+  //         setUserPhoto(photoUrl);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       // console.error("Error fetching user profile", error);
+  //       setUserPhoto('src/assets/user.png');
+  //     });
+  // }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -71,7 +71,7 @@ const logOut = ()=>{
 
   return (
     <header className="header">
-      <div className="header__logo">CompanyName</div>
+      <div className="header__logo">Training Management System</div>
       <nav className="header__nav">
         <div className="profile-container" onClick={toggleDropdown}>
           <img src={userPhoto} alt="User Profile" className="header__profile-pic" />

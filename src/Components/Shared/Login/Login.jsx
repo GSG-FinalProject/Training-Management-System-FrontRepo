@@ -4,7 +4,7 @@ import { UserContext } from '../../../Context/UserContext';
 import { useFormik } from 'formik';
 import { loginScheme } from '../../../Validation/validation';
 import Input from '../Input/Input';
-import './login.css'
+import './Login.css'
 import axios from 'axios';
 
 export default function Login() {
@@ -114,7 +114,7 @@ export default function Login() {
                       <div className="error" id="passwordError" />
                     </div>
                   </div> */}
-                  <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                  <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4 btnContainer">
                     <button type="submit" className="loginBtn btn  btn-lg">Login</button>
                   </div>
                 </form>

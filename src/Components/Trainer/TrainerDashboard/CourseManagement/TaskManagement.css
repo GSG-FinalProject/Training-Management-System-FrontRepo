@@ -15,6 +15,7 @@
 }
 
 .task-manager .form-container input,
+.task-manager .form-container select,
 .task-manager .form-container textarea,
 .task-manager .content-update select,
 .task-manager .content-update input {
@@ -114,6 +115,8 @@
     }
 
     .task-manager .form-container input,
+    .task-manager .form-container select,
+
     .task-manager .form-container textarea,
     .task-manager .form-container button {
         width: 100%;
