@@ -39,6 +39,7 @@ const TaskManagement = () => {
         fetchTasks();
         fetchCourses(); // Fetch courses on component mount
     }, [baseUrl]);
+    }, [baseUrl,tasks]);
 
     // Select a task for update
     const handleTaskSelect = (task) => {

@@ -16,6 +16,10 @@ const CourseManagement = () => {
     const baseUrl = 'https://localhost:7107/api';
     
     // Fetch courses
+    useEffect(() => {
+        fetchCourses();
+    }, [baseUrl,courses]);
+    
     const fetchCourses = async () => {
         try {
             const response = await axios.get(`${baseUrl}/Courses`);
@@ -38,6 +42,9 @@ const CourseManagement = () => {
             console.error('Error fetching training fields:', error);
         }
     };
+    }
+    
+    // , [];
 
     // Use useEffect to call fetchCourses and fetchTrainingFields
     useEffect(() => {

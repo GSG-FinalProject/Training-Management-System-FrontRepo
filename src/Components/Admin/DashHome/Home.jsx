@@ -6,9 +6,9 @@ export default function Home() {
 
   return (
     <>
-    <h1 className='ps-3 pt-3 pb-3'><span className='border border-2 p-2 border-primary-subtle border'>Welcome "{userData.firstName} {userData.lastName}"</span></h1>
+    <h1 className='ps-3 pt-3 pb-3 mt-3'><span className='border border-2 p-2 border-primary-subtle border'>Welcome "{userData.firstName} {userData.lastName}"</span></h1>
     <div className="image-container">
-    <img src='/TMS.png' className='TMSImg'/>
+    <img src='/TMS.png' className='TMSImg '/>
   </div>
     </>
     

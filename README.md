@@ -59,10 +59,14 @@ https://github.com/user-attachments/assets/f4d7f2be-cbf8-4d00-9683-fbd638d15c2f
 ![Screenshot 2024-10-07 232248](https://github.com/user-attachments/assets/6e9414b0-06cb-4eae-9caf-053956959ed0)
 
 ### Login page
-![Screenshot 2024-10-07 232328](https://github.com/user-attachments/assets/debc5c0a-b89b-42f9-b58c-226f25f3ac08)
+![Screenshot 2024-10-09 234640](https://github.com/user-attachments/assets/a6f6271a-e9ea-4732-8fb8-177f8daf25f7)
 
 ### Admin Dashboard
-![Screenshot 2024-10-07 232117](https://github.com/user-attachments/assets/dc5443a9-fabd-4e9b-b145-b77457874d4b)
+1. ![Screenshot 2024-10-09 234558](https://github.com/user-attachments/assets/87e6aac4-4925-41c5-bb1b-8bd515116d4a)
+2. ![Screenshot 2024-10-09 235146](https://github.com/user-attachments/assets/3ccf5b5c-384c-489e-9c4d-d50f888cd4b4)
+3. ![Screenshot 2024-10-09 234624](https://github.com/user-attachments/assets/034f50aa-bfe5-46f9-8fdf-02f275d62e79)
+
+
 
 ### Trainer Dashboard
 ![Screenshot 2024-10-07 232515](https://github.com/user-attachments/assets/2fca21e3-9643-4e70-9023-c9a7cd861df6)

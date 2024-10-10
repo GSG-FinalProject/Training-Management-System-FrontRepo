@@ -62,9 +62,34 @@ export default function Trainings() {
     fetchTrainings();
   }, []);
   // fetchTrainers();
+
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (event) => {
+     setSearchTerm(event.target.value);
+   };
+ 
+   const filteredTrainings = trainings.filter((training) => {
+     return (
+       training.name.toLowerCase().includes(searchTerm.toLowerCase()) 
+     );
+   });
   return (
     <>
-   <h1 className='ps-4 py-3'>Trainings</h1>
+   <div className="d-flex mt-3 mb-2 justify-content-between border-bottom py-3">
+        <h1 className='ps-4 main-col'>Trainees</h1>
+        <form className="me-3" role="search">
+          <input
+            className="form-control me-5"
+            type="search"
+            placeholder="Search by name"
+            aria-label="Search"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </form>
+      </div>
    <div className="table-container ps-3">
    {loading ? (
           <Loading/> 
@@ -79,7 +104,7 @@ export default function Trainings() {
     </tr>
   </thead>
   <tbody>
-    {trainings.length?(trainings.map((training,index) => (
+    {filteredTrainings.length?(filteredTrainings.map((training,index) => (
       <tr key={training.id}>
         <th scope="row">{++index}</th>
         <td>{training.name}</td>
