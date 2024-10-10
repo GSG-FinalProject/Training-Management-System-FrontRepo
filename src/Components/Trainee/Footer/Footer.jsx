@@ -2,7 +2,7 @@ import './Footer.css'
 const Footer = () => {
   return (
     <footer>
-      <p>© 2024 CompanyName. All Rights Reserved.</p>
+      <p>© 2024 TMS. All Rights Reserved.</p>
     </footer>
   );
 };

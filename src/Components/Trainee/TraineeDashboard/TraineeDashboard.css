@@ -254,7 +254,7 @@ body {
     color: #000000;
 }
 
-.traineeDashboard .traineeDashboard .modal-overlay {
+.traineeDashboard .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -265,6 +265,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    overflow: auto; /* Add this to handle large content */
 }
 
 .traineeDashboard .modal-content {
@@ -275,6 +276,17 @@ body {
     width: 400px;
     max-width: 90%;
     text-align: center;
+    margin: auto; /* Ensures centering in case of overflow */
+}
+.traineeDashboard .modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.traineeDashboard .modal-content  button{
+    width: 50%;
+    margin: auto;
+    margin-bottom: 10px;
 }
 
 .traineeDashboard .modal-close {
@@ -363,6 +375,9 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: auto;
     width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .traineeDashboard .feedback-item {

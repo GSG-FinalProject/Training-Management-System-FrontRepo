@@ -14,7 +14,7 @@ function TraineeDashboard() {
     const [notification, setNotification] = useState(null);
     const [feedbacks, setFeedbacks] = useState([]); // State for feedbacks
 
-    let { userToken, userId } = useContext(UserContext);
+    let { userToken, userId,userData } = useContext(UserContext);
 
     // Fetch courses, assignments, and feedback data
     useEffect(() => {
@@ -41,7 +41,7 @@ function TraineeDashboard() {
 
     const handleAssignmentClick = (assignment) => {
         setSelectedAssignment(assignment);
-        setModalVisible(true); // Show modal when assignment clicked
+        setModalVisible(true);
     };
 
     const handleFileChange = (e) => {
@@ -57,7 +57,7 @@ function TraineeDashboard() {
 
         // Prepare FormData for submission
         const formData = new FormData();
-        formData.append('taskId', selectedAssignment);
+        formData.append('taskId', selectedAssignment.id);
         formData.append('filePath', file);
         formData.append('traineeId', userId);
 
@@ -69,7 +69,7 @@ function TraineeDashboard() {
                 },
             });
 
-    
+
             if (response.status === 201) {
                 setUploadStatus('Assignment submitted successfully!');
                 setModalVisible(false);
@@ -91,11 +91,23 @@ function TraineeDashboard() {
             <div className="floating-circles">
                 {/* Floating circles animation */}
                 <div className="circle"></div>
-                {/* Other circles omitted for brevity */}
+                <div className="circle"></div>
+                <div className="circle"></div>
+                <div className="circle"></div>
+                <div className="circle"></div>
+                <div className="circle"></div>
+                <div className="circle"></div>
+                <div className="circle"></div>
+                <div className="circle"></div>
+                <div className="circle"></div>
+                <div className="circle"></div>
+                <div className="circle"></div>
+                <div className="circle"></div>
+
             </div>
             <div className="traineeDashboard">
                 <h1 className='heading'>Trainee Dashboard</h1>
-
+                <h2>Hi {userData.firstName} !👋</h2>
                 {/* Notification for submission */}
                 {notification && (
                     <div className="notification">
@@ -117,7 +129,7 @@ function TraineeDashboard() {
                                         <li key={index} className='course'>
                                             <h2>Course Name: {courseItem.name}</h2>
                                             <p>Course description: {courseItem.description}</p>
-                                            <a href={courseItem.resoursesUrl} download>
+                                            <a href={courseItem.resoursesUrl} target='_blank'>
                                                 {courseItem.resoursesUrl ? 'Tap here to view the Resource' : 'No Resources Available'}
                                             </a>
                                         </li>
@@ -127,7 +139,6 @@ function TraineeDashboard() {
                                 <p>No courses available.</p>
                             )}
                         </div>
-
                         {/* Display assignments */}
                         <div className="assignments-section">
                             <h2>Tasks</h2>
@@ -135,7 +146,7 @@ function TraineeDashboard() {
                                 <ul>
                                     {assignments.map((assignment) => (
                                         <li key={assignment.id} className="task">
-                                            <a onClick={() => handleAssignmentClick(assignment.id)}>
+                                            <a onClick={() => handleAssignmentClick(assignment)}>
                                                 {assignment.title}
                                             </a>
                                             <p className="deadline">Deadline: {assignment.deadline}</p>
@@ -147,7 +158,6 @@ function TraineeDashboard() {
                                 <p>No tasks available.</p>
                             )}
                         </div>
-
                         {/* Feedback Section */}
                         <div className="feedback-section">
                             <h2>All Feedbacks</h2>
@@ -155,7 +165,7 @@ function TraineeDashboard() {
                                 feedbacks.map(feedback => (
                                     <div key={feedback.id} className="feedback-item">
                                         <p><strong>Comment:</strong> {feedback.comment}</p>
-                                        <p><strong>Rating:</strong> {feedback.rating} / 5</p>
+                                        <p><strong>Rating:</strong> {feedback.rating} /10</p>
                                         <p><strong>Given At:</strong> {new Date(feedback.givenAt).toLocaleString()}</p>
                                         <hr />
                                     </div>
@@ -166,13 +176,12 @@ function TraineeDashboard() {
                         </div>
                     </>
                 )}
-
                 {/* Modal for assignment submission */}
-                {modalVisible && (
+                {modalVisible && selectedAssignment && (
                     <div className="modal-overlay">
                         <div className="modal-content">
-                            <h2>{selectedAssignment.name}</h2>
-                            <p>Deadline: {selectedAssignment.deadline}</p>
+                            <h2>{selectedAssignment.title || 'No name available'}</h2>
+                            <p>Deadline: {selectedAssignment.deadline || 'No deadline set'}</p>
                             <form onSubmit={handleSubmit}>
                                 <label htmlFor="link">Submit a link for the assignment:</label>
                                 <input

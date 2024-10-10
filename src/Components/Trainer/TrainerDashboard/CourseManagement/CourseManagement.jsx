@@ -5,6 +5,7 @@ import { UserContext } from '../../../../Context/UserContext';
 
 const CourseManagement = () => {
     const [courses, setCourses] = useState([]);
+    const [trainingFields, setTrainingFields] = useState([]);
     const [selectedCourse, setSelectedCourse] = useState(null); // Used for course being edited
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -15,10 +16,6 @@ const CourseManagement = () => {
     const baseUrl = 'https://localhost:7107/api';
     
     // Fetch courses
-    useEffect(() => {
-        fetchCourses();
-    }, []);
-    
     const fetchCourses = async () => {
         try {
             const response = await axios.get(`${baseUrl}/Courses`);
@@ -28,8 +25,25 @@ const CourseManagement = () => {
             console.error('Error fetching courses:', error);
         }
     };
-    }, [baseUrl,courses]);
+    
+    // Fetch training fields
+    const fetchTrainingFields = async () => {
+        try {
+            const response = await axios.get(`${baseUrl}/TrainingField`);
+            if (response.data.succeeded) {
+                setTrainingFields(response.data.data);
+            }
+        } catch (error) {
+            setErrorMessage('Failed to fetch training fields');
+            console.error('Error fetching training fields:', error);
+        }
+    };
 
+    // Use useEffect to call fetchCourses and fetchTrainingFields
+    useEffect(() => {
+        fetchCourses();
+        fetchTrainingFields();
+    }, [baseUrl]);
 
     // Select a course for update
     const handleCourseSelect = (course) => {
@@ -117,7 +131,7 @@ const CourseManagement = () => {
 
     return (
         <div className="task-manager">
-            <h2>Manage Courses </h2>
+            <h2>Manage Courses</h2>
             {/* Error and success messages */}
             {successMessage && <div className="success-message">{successMessage}</div>}
             {errorMessage && <div className="error-message">{errorMessage}</div>}
@@ -149,14 +163,19 @@ const CourseManagement = () => {
                         ? setNewUpdatedCourse({ ...newUpdatedCourse, resoursesUrl: e.target.value })
                         : setNewCourse({ ...newCourse, resoursesUrl: e.target.value })}
                 />
-                <input
-                    type="number"
-                    placeholder="Training Field ID"
+                <select
                     value={selectedCourse ? newUpdatedCourse.trainingFieldId : newCourse.trainingFieldId}
                     onChange={(e) => selectedCourse
                         ? setNewUpdatedCourse({ ...newUpdatedCourse, trainingFieldId: parseInt(e.target.value) })
                         : setNewCourse({ ...newCourse, trainingFieldId: parseInt(e.target.value) })}
-                />
+                >
+                    <option value="">Select Training Field</option>
+                    {trainingFields.map((field) => (
+                        <option key={field.id} value={field.id}>
+                            {field.name}
+                        </option>
+                    ))}
+                </select>
                 <button onClick={handleSaveCourse}>
                     {selectedCourse ? 'Update Course' : 'Create Course'}
                 </button>
@@ -165,8 +184,9 @@ const CourseManagement = () => {
             {/* List of Courses */}
             <h3>Courses</h3>
             <ul>
-                {courses && courses.map((course) => (
-                    course && ( // Add this check to ensure course is not null or undefined
+                {courses && courses.length > 0 ? (
+                    courses.map((course) => (
+                        course && (
                         <li key={course.id} className='course'>
                             <h4>Course Name: {course.name}</h4>
                             <p>Course description: {course.description}</p>
@@ -178,7 +198,10 @@ const CourseManagement = () => {
                             </div>
                         </li>
                     )
-                ))}
+                    ))
+                ) : (
+                    <p>No courses available</p>
+                )}
             </ul>
         </div>
     );
